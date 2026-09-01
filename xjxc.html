@@ -2,43 +2,35 @@
 <html lang="zh‑CN">
 <head>
     <meta charset="UTF‑8">
-    <meta name="viewport" content="width=device‑width, initial‑scale=1.0">
-    <title>星际相册</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>星际相册 — NASA每日天文图</title>
+    <link rel="stylesheet" href="./xjxc.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🌌 星际相册 — NASA每日天文图</h1>
+    <div class="header">🚀 星际相册 — NASA每日天文图</div>
+    <div class="search-bar">
+        <input type="date" id="dateInput">
+        <button id="searchBtn">查看该日图片</button>
+        <button id="randomBtn">随机一张</button>
+        <button id="langBtn">语言：中文</button>
+        <button id="showCollectBtn">⭐我的收藏</button>
+    </div>
 
-        <!-- 操作区域 -->
-        <div class="control‑box">
-            <input type="date" id="dateInput">
-            <button id="searchBtn">查看该日图片</button>
-            <button id="randomBtn">🎲 随机一张</button>
-            <button id="showCollectBtn">⭐我的收藏</button>
+    <div id="cardBox"></div>
+
+    <!--图片弹窗-->
+    <div id="modal">
+        <button class="close">关闭</button>
+        <img id="modalImg" alt="">
+    </div>
+
+    <!--收藏弹窗-->
+    <div id="collectModal">
+        <div class="collect-wrap">
+            <button class="close">关闭</button>
+            <div id="collectList"></div>
         </div>
-
-        <!-- 状态提示 -->
-        <div id="loading" class="tip">加载中，请稍候……</div>
-        <div id="errorTip" class="tip error"></div>
-
-        <!-- 图片内容卡片 -->
-        <div id="cardBox" class="card‑box"></div>
     </div>
 
-    <!-- 图片放大弹窗 -->
-    <div id="modal" class="modal">
-        <span class="close">×</span>
-        <img id="modalImg" src="" alt="大图">
-    </div>
-
-    <!-- 收藏弹窗 -->
-    <div id="collectModal" class="modal">
-        <span class="close">×</span>
-        <h3>我的收藏</h3>
-        <div id="collectList"></div>
-    </div>
-
-    <script src="./main.js"></script>
+<script src="./xjxc.js"></script>
 </body>
 </html>

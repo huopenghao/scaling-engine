@@ -1,0 +1,24 @@
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#101830;color:#fff;padding:16px;max-width:900px;margin:0 auto}
+.header{text-align:center;margin-bottom:20px;font-size:24px;font-weight:bold}
+.search-bar{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+#dateInput{padding:8px 10px;font-size:16px;width:180px}
+button{padding:8px 14px;font-size:15px;border:none;border-radius:4px;cursor:pointer;background:#3478f6;color:#fff}
+button:hover{background:#2364dd}
+#cardBox{margin-top:20px}
+.card{background:#202b54;border-radius:10px;overflow:hidden}
+.card img{width:100%;display:block}
+.card-content{padding:14px}
+.card-content h2{margin-bottom:6px;font-size:18px}
+.date{color:#b0c4ff;font-size:14px;margin-bottom:10px}
+.desc{font-size:14px;line-height:1.6;margin-bottom:12px}
+.collect-btn{background:#f2b807;color:#000}
+.collect-btn:hover{background:#ddaa00}
+
+/* 弹窗 */
+#modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;z-index:99;align-items:center;justify-content:center;padding:20px}
+#modalImg{max-width:95%;max-height:90vh}
+#collectModal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;z-index:99;padding:30px;overflow:auto}
+.collect-wrap{max-width:700px;margin:0 auto;background:#1b2448;padding:20px;border-radius:8px}
+.close{background:#888;margin-bottom:12px}
+.del-collect{background:#e54545;margin-left:8px}
