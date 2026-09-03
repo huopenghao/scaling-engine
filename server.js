@@ -95,12 +95,26 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    //返回前端页面
-    if(req.url === '/' || req.url === '/xjxc.html'){
+    //默认登录页
+    if(req.url === '/' || req.url === '/login.html'){
+        fs.readFile('./login.html','utf8',(err,html)=>{
+            if(err){
+                res.writeHead(404);
+                res.end("login.html找不到");
+            }else{
+                res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
+                res.end(html);
+            }
+        })
+        return;
+    }
+
+    //相册页
+    if(req.url === '/xjxc.html'){
         fs.readFile('./xjxc.html','utf8',(err,html)=>{
             if(err){
                 res.writeHead(404);
-                res.end("html文件找不到");
+                res.end("xjxc.html找不到");
             }else{
                 res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
                 res.end(html);

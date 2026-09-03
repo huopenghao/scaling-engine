@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 星际相册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0b1020;
+            color: #fff;
+            font-family: system-ui;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .login-box {
+            width: 360px;
+            padding: 32px;
+            background:#141b33;
+            border-radius:12px;
+            border:1px solid #2a3459;
+        }
+        .title{
+            text-align:center;
+            font-size:24px;
+            margin-bottom:24px;
+        }
+        .item{
+            margin-bottom:16px;
+        }
+        label{
+            display:block;
+            margin-bottom:6px;
+            font-size:14px;
+        }
+        input{
+            width:100%;
+            padding:12px;
+            border-radius:6px;
+            border: 1px solid #39446b;
+            background:#0f162e;
+            color:#fff;
+            font-size:15px;
+        }
+        .btns{
+            margin-top:24px;
+            display:flex;
+            gap:12px;
+        }
+        button{
+            flex:1;
+            padding:12px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:15px;
+        }
+        .login-btn{
+            background:#407bff;
+            color:white;
+        }
+        .reg-btn{
+            background:#222b48;
+            color:#fff;
+        }
+        .tip{
+            margin-top:16px;
+            text-align:center;
+            font-size:13px;
+            color:#aaa;
+        }
+    </style>
+</head>
+<body>
+<div class="login-box">
+    <div class="title">星际相册</div>
+    <div class="item">
+        <label>用户名</label>
+        <input id="username" placeholder="请输入用户名">
+    </div>
+    <div class="item">
+        <label>密码</label>
+        <input id="password" type="password" placeholder="请输入密码">
+    </div>
+    <div class="btns">
+        <button class="login-btn" id="loginBtn">登录</button>
+        <button class="reg-btn" id="registerBtn">注册</button>
+    </div>
+    <div class="tip" id="msg"></div>
+</div>
+
+<script>
+const baseUrl = "http://127.0.0.1:8080"; //改成你Java后端地址
+
+const usernameInp = document.getElementById('username');
+const passwordInp = document.getElementById('password');
+const loginBtn = document.getElementById('loginBtn');
+const regBtn = document.getElementById('registerBtn');
+const msgDom = document.getElementById('msg');
+
+function showMsg(text){
+    msgDom.innerText = text;
+}
+
+//登录
+loginBtn.onclick = async ()=>{
+    const username = usernameInp.value.trim();
+    const password = passwordInp.value.trim();
+    if(!username||!password){
+        showMsg("用户名密码不能为空");
+        return;
+    }
+    try{
+        const res = await fetch(`${baseUrl}/user/login`,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({username,password})
+        })
+        const data = await res.json();
+        if(data.code===200){
+            //存储token
+            localStorage.setItem("token",data.data.token);
+            showMsg("登录成功，跳转相册...");
+            setTimeout(()=>{
+                location.href="./xjxc.html";
+            },800)
+        }else{
+            showMsg(data.msg||"登录失败");
+        }
+    }catch(e){
+        showMsg("后端连接失败，请确认Java服务已经启动");
+    }
+}
+
+//注册
+regBtn.onclick = async ()=>{
+    const username = usernameInp.value.trim();
+    const password = passwordInp.value.trim();
+    if(!username||!password){
+        showMsg("用户名密码不能为空");
+        return;
+    }
+    try{
+        const res = await fetch(`${baseUrl}/user/register`,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({ "username": username, "password": password })
+        })
+        const data = await res.json();
+        if(data.code===200){
+            showMsg("注册成功，请登录");
+        }else{
+            showMsg(data.msg||"注册失败");
+        }
+    }catch(e){
+        showMsg("后端连接失败，请确认Java服务已经启动");
+    }
+}
+</script>
+</body>
+</html>
